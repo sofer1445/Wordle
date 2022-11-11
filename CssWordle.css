@@ -1,0 +1,42 @@
+
+h1{
+    color: darkblue;
+    text-align: center;
+}
+input {
+    border: 2px solid gray;
+    border-radius: 3px;
+    margin: 2px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    height: 3rem;
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(4rem, 1fr));
+    grid-auto-rows: 1fr;
+}
+
+.grid::before {
+    content: '';
+    width: 0;
+    padding-bottom: 100%;
+    grid-row: 1 / 1;
+    grid-column: 1 / 1;
+}
+
+.grid > *:first-child {
+    grid-row: 1 / 1;
+    grid-column: 1 / 1;
+}
+
+
+
+
+
+
