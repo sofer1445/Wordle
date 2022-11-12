@@ -9,82 +9,133 @@
     </script>
 
 </head>
-        <body>
-        <h1 id="title">
-            Wordle
-        </h1>
-        <div onload="drawGridBoard()" class="grid">
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-
+<body>
+<h1 id="title">
+    Wordle
+</h1>
+<div onload="drawGridBoard()" class="Board">
+    <div id="row">
+        <div>
+            <input type="text">
         </div>
-        <div onload="drawGridBoard()" class="grid">
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-
+        <div>
+            <input type="text">
         </div>
-        <div onload="drawGridBoard()" class="grid">
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-
+        <div>
+            <input type="text">
         </div>
-        <div onload="drawGridBoard()" class="grid">
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
-            <div>
-                <input  type="text">
-            </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+    </div>
 
+    <div id="row2">
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
         </div>
 
-        </body>
-        </html>
+
+    </div>
+    <div id="row3">
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+    </div>
+    <div id="row4">
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+    </div>
+    <div id="row5">
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+        <div>
+            <input type="text">
+        </div>
+    </div>
+
+</div>
+    <div class="buttons">
+        <button onclick="drawGridBoard()">
+            New Game
+        </button>
+        <button onclick="checkWord(),takeTheWordFromTheLines()">
+            Check
+        </button>
+        <button onclick="showWord()">
+            Show
+        </button>
+    </div>
+    <div class="score">
+        <h2 id="score">
+            Score:
+        </h2>
+</div>
+
+</body>
+
+</html>
