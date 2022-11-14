@@ -1,3 +1,4 @@
+let lineRow = 0;
 function drawGridBoard() {
     let board = document.createElement('div');
     board.setAttribute('class', 'board');
@@ -15,23 +16,44 @@ function drawGridBoard() {
 }
 
 function checkWord() {
+    let arrayOfColor = [];
     let word = takeTheWordFromTheLines();
     let wordFromList = listOfWordsInHebrew();
     if (word == wordFromList) {
         alert("good");
     } else {
-        alert("bad");
+        for (let i = word.length-1; i >= 0; i--) {
+            arrayOfColor[i] = checkCell(i);
+            alert(arrayOfColor[i]);
+        }
 
+        // lineRow++;//change the line
     }
+    return arrayOfColor;
+}
+function checkCell(i) {
+    let cell = document.getElementById("cell"+i);
+    alert(cell.value);
+    let charOfWord = listOfWordsInHebrew().charAt(i);//פה הבעיה
+    alert(charOfWord);
+    if (cell.value == charOfWord) {
+        return "green"
+    } else if(listOfWordsInHebrew().includes(cell.value)) {
+        return "yellow"
+    } else if(cell.value != charOfWord) {
+        return "gray"
+    }
+
+
 }
 
 function showWord() {
     let word = listOfWordsInHebrew();
-    let i = 0;
-    while (i < 6) {
-        let char = word.charAt(i);
+    let i = 4;
+    while (i >= 0) {
+        let char = word.charAt(4-i);
         document.getElementsByTagName("input") [i].value = char;
-        i++;
+        i--;
     }
 
 }
@@ -43,17 +65,22 @@ function listOfWordsInHebrew() {
 
 }
 
-function takeTheWordFromTheLines() {//לא עובד
-    let wordFromLines = document.getElementsByTagName("input");
+function takeTheWordFromTheLines() {
     let word = "";
-    let i = wordFromLines.length;
-    while (i > 0) {
-        word += wordFromLines[i-6].value;
-        i = i - 6;
+    for (let i = 4; i >= 0; i--) {
+        let wordFromLines = document.getElementById("cell"+i).value;
+        word = word + wordFromLines;
     }
-    // for (let i = 0; i < wordFromLines.length; i++) {
-    //     word += wordFromLines[i].value;
-    // }
+
     return word;
 
 }
+function paintASquare(){
+     let arrayOfColor = checkWord();
+     for (let i = 0; i < arrayOfColor.length; i++) {
+          document.getElementById("cell"+i).style.backgroundColor = arrayOfColor[i];
+
+     }
+
+}
+
