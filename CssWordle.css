@@ -3,22 +3,8 @@ h1{
     color: darkblue;
     text-align: center;
 }
-input {
-    border: 2px solid gray;
-    border-radius: 3px;
-    margin: 2px;
-    font-size: 2.5rem;
-    font-weight: 700;
-    height: 3rem;
-    width: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-transform: uppercase;
-    cursor: pointer;
 
-}
-.Board {
+ div[class='row']{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -33,13 +19,14 @@ input {
     /*grid-template-columns: repeat(auto-fill, minmax(4rem, 1fr));*/
     /*grid-auto-rows: 1fr;*/
 
-.Board::before {
+.row::before {
     content: "";
     grid-column: 1 / -1;
     grid-row: 1 / -1;
     border: 2px solid gray;
     border-radius: 3px;
     margin: 2px;
+
 }
     /*content: '';*/
     /*width: 100%;*/
@@ -48,9 +35,25 @@ input {
     /*grid-column: 1 / 1;*/
 
 
-.Board > *:first-child {
+.row > *:first-child {
     grid-column: 1 / 1;
     grid-row: 1 / 1;
+
+}
+input {
+    border: 2px solid gray;
+    border-radius: 3px;
+    margin: 2px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    height: 3rem;
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    cursor: pointer;
+
 }
 
     /*grid-row: 1 / 1;*/

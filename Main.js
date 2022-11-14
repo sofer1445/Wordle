@@ -1,65 +1,59 @@
-// function drawGrid() {
-//     for (let i = 0; i < 6; i++) {
-//         for (let j = 0; j < 6; j++) {
-//             drawGridBoard(i * 100, j * 100, 100, 100);
-//         }
-//     }
-// }
-//
-// let x = 0;
-// let y = 0;
-// let canvas = document.getElementsByClassName("Board");
-// let ctx = canvas.getContext("2d");
-//
-// function drawGridBoard(x, y, width, height) {
-//     ctx.fillRect(x, y, width, height);
-//
-// }
-// for (let i = 0; i < 6; i++) {
-//
-//     for (let j = 0; j < 6; j++) {
-//         drawGridBoard(x + j * 50, y + i * 50, 50, 50);
-//     }
-// }
-function drawGridBoard(){
-    let canvas = document.getElementById("canvas");
-    let ctx = canvas.getContext("2d");
-    let x = 0;
-    let y = 0;
+function drawGridBoard() {
+    let board = document.createElement('div');
+    board.setAttribute('class', 'board');
     for (let i = 0; i < 6; i++) {
-        for (let j = 0; j < 6; j++) {
-            ctx.fillRect(x + j * 50, y + i * 50, 50, 50);
+        let row = document.createElement("div");
+        row.setAttribute('class', 'row');
+        for (let j = 0; j < 5; j++) {
+            let cell = document.createElement("input");
+            cell.setAttribute('id', 'cell'+j);
+            row.appendChild(cell);
         }
+        board.appendChild(row);
     }
+    document.body.appendChild(board);
 }
+
 function checkWord() {
-    let word = document.getElementById("row").value;
-    let wordInHebrew = listOfWordsInHebrew();
-    if (word == wordInHebrew) {
-        alert("Correct");
+    let word = takeTheWordFromTheLines();
+    let wordFromList = listOfWordsInHebrew();
+    if (word == wordFromList) {
+        alert("good");
     } else {
-        alert("Wrong");
+        alert("bad");
+
     }
 }
-function showWord(){
+
+function showWord() {
     let word = listOfWordsInHebrew();
-    document.getElementById("row").innerText = word;
+    let i = 0;
+    while (i < 6) {
+        let char = word.charAt(i);
+        document.getElementsByTagName("input") [i].value = char;
+        i++;
+    }
 
 }
+
 function listOfWordsInHebrew() {
-    let words = ["כלב", "חתול", "פרח", "כוכב", "סלע", "פירות", "צליל",
-        "ספר", "עץ", "גינה", "טלפון", "שולחן", "סכין",
-        "כף", "כפפה", "כוס", "כלים", "כיסא", "מכונת כביסה",
-        "מטאטא", "שוקולד", "מחשב", "אפרסק",];
+    let words = ["אפרסק"];
     let randomWord = words[Math.floor(Math.random() * words.length)];
     return randomWord;
 
 }
-function takeTheWordFromTheLines(){//לא עובד
-    let words = document.getElementsByClassName("Board");
-    for (let i = 0; i < 6; i++) {
-        let wordsOfLine = words.getElementsByClassName("row");
-        alert(wordsOfLine);
+
+function takeTheWordFromTheLines() {//לא עובד
+    let wordFromLines = document.getElementsByTagName("input");
+    let word = "";
+    let i = wordFromLines.length;
+    while (i > 0) {
+        word += wordFromLines[i-6].value;
+        i = i - 6;
     }
+    // for (let i = 0; i < wordFromLines.length; i++) {
+    //     word += wordFromLines[i].value;
+    // }
+    return word;
 
 }
