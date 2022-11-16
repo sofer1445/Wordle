@@ -1,6 +1,13 @@
-let lineRow = 0;
+let indexTheFirstInput = 4;
+let counter = 0;
+let nameOfTheWord = "";
+let numOfIteration = 6;
+let randomWord = "";
+
 
 function drawGridBoard() {
+    console.log("drawGridBoard");
+    randomWord = listOfWordsInHebrew();//מגריל מילה רנדומלית
     let board = document.createElement('div');
     board.setAttribute('class', 'board');
     for (let i = 0; i < 6; i++) {
@@ -8,7 +15,9 @@ function drawGridBoard() {
         row.setAttribute('class', 'row');
         for (let j = 0; j < 5; j++) {
             let cell = document.createElement("input");
-            cell.setAttribute('id', 'cell' + j);
+            cell.setAttribute('id',  'cell' + (j + i*5));
+            cell.maxLength = 1;
+            cell.disabled = true;
             row.appendChild(cell);
         }
         board.appendChild(row);
@@ -17,25 +26,27 @@ function drawGridBoard() {
 }
 
 function checkWord() {
+    console.log("checkWord");
     let arrayOfColor = [];
-    let word = takeTheWordFromTheLines();
+    let word = writingInTextBox();
     let wordFromList = listOfWordsInHebrew();
     if (word == wordFromList) {
         alert("good");
     } else {
-        for (let i = word.length - 1; i >= 0; i--) {
+        for (let i = indexTheFirstInput; i >= 0; i--) {
             arrayOfColor[i] = checkCell(i);
-            alert(arrayOfColor[i]);
+            console.log(arrayOfColor[i]);
         }
-
-        // lineRow++;//change the line
+        numOfIteration--;
     }
     return arrayOfColor;
 }
 
 function checkCell(i) {
+    console.log("checkCell");
     let cell = document.getElementById("cell" + i);
-    let charOfWord = listOfWordsInHebrew().charAt(4 - i);
+    let charOfWord = randomWord.charAt(indexTheFirstInput - i);
+    console.log(indexTheFirstInput - i +"," +  randomWord.charAt(indexTheFirstInput - i));
     if (cell.value == charOfWord) {
         return "green"
     } else if (listOfWordsInHebrew().includes(cell.value)) {
@@ -48,6 +59,7 @@ function checkCell(i) {
 }
 
 function showWord() {
+    console.log("showWord");
     let word = listOfWordsInHebrew();
     let i = 4;
     while (i >= 0) {
@@ -59,24 +71,15 @@ function showWord() {
 }
 
 function listOfWordsInHebrew() {
+    console.log("listOfWordsInHebrew");
     let words = ["אפרסק"];
     let randomWord = words[Math.floor(Math.random() * words.length)];
     return randomWord;
 
 }
 
-function takeTheWordFromTheLines() {
-    let word = "";
-    for (let i = 4; i >= 0; i--) {
-        let wordFromLines = document.getElementById("cell" + i).value;
-        word = word + wordFromLines;
-    }
-
-    return word;
-
-}
-
 function paintASquare() {
+    console.log("paintASquare");
     let arrayOfColor = checkWord();
     for (let i = 0; i < arrayOfColor.length; i++) {
         document.getElementById("cell" + i).style.backgroundColor = arrayOfColor[i];
@@ -86,7 +89,8 @@ function paintASquare() {
 }
 
 function hebrewKeyboard() {
-    let hebrewLetters = ["ק", "ר", "א", "ט", "ו", "ן", "ם", "פ","ש", "ד", "ג", "כ", "ע", "י", "ח", "ל", "ך", "ף", "ז", "ס", "ב", "ה", "נ", "מ", "צ", "ת","ץ"];
+    console.log("hebrewKeyboard");
+    let hebrewLetters = ["ק", "ר", "א", "ט", "ו", "ן", "ם", "פ", "ש", "ד", "ג", "כ", "ע", "י", "ח", "ל", "ך", "ף", "ז", "ס", "ב", "ה", "נ", "מ", "צ", "ת", "ץ"];
     let keyboard = document.createElement('div');
     keyboard.setAttribute('class', 'keyboard');
     for (let i = 0; i < 3; i++) {
@@ -94,18 +98,38 @@ function hebrewKeyboard() {
         row.setAttribute('class', 'rowKeyboard');
         for (let j = 0; j < 9; j++) {
             let cell = document.createElement("button");
-            cell.setAttribute('onclick', 'writeOnTheLines(this)');
             cell.innerText = hebrewLetters[j + (i * 9)];
+            cell.setAttribute('onclick', 'writeOnTheLines(this)');
             row.appendChild(cell);
         }
         keyboard.appendChild(row);
     }
     document.body.appendChild(keyboard);
-}
-function writingFromKeyboard(){
-    let wordKeyboard = document.getElementsByTagName("button");
-    let char = wordKeyboard.innerText;
-    alert(char);
 
 }
+
+function writingInTextBox() {//מחזיר את המילה המלאה
+    console.log("writingInTextBox");
+    let theWord = "";
+    if (nameOfTheWord.length == 5) {
+        theWord += nameOfTheWord;
+    }
+    return theWord;
+}
+
+function writeOnTheLines(key) {
+    if (counter == 5) {
+        indexTheFirstInput += 5;
+        counter = 0;
+        nameOfTheWord = "";
+    }
+    console.log("writeOnTheLines");
+    let cell = document.getElementById("cell" + (indexTheFirstInput-counter));
+    cell.value = key.innerText;
+    nameOfTheWord += key.innerText;
+    counter++;
+    console.log(nameOfTheWord);
+}
+
+
 
