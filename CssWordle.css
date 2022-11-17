@@ -94,6 +94,18 @@ button[onclick='writeOnTheLines(this)'] {
     height: 45px;
 }
 
+img[class='picture'] { /*צריך למצוא איך להקפיץ את הסבר המשחק בצורה יפה*/
+    paint-order: none;
+    width: 50%;
+    height: 50%;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+
+
+
+}
+
 
 
 
