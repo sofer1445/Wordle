@@ -5,7 +5,7 @@ let numOfIteration = 6;
 let randomWords = "";
 let score = "Total points:";
 let hiddenKeyboard = true;
-
+let gameOver = 0;
 
 
 function drawGridBoard() {
@@ -19,7 +19,7 @@ function drawGridBoard() {
         row.setAttribute('class', 'row');
         for (let j = 0; j < 5; j++) {
             let cell = document.createElement("input");
-            cell.setAttribute('id',  'cell' + (j + i*5));
+            cell.setAttribute('id', 'cell' + (j + i * 5));
             cell.maxLength = 1;
             cell.disabled = true;//ביטול מקלדת מחשב
             row.appendChild(cell);
@@ -38,16 +38,22 @@ function checkWord() {
         arrayOfColor[i] = checkCell(i);
         console.log(arrayOfColor[i]);
         counter++;
-        if(counter == 5){
+        if (counter == 5) {
             break;
         }
     }
     if (word == randomWords) {
-        setTimeout(() => {alert("Well done you made it! , try again to improve your vocabulary");}
+        setTimeout(() => {
+                alert("Well done you made it! , try again to improve your vocabulary");
+            }
             , 2000);
         countingPoints();
+    }else {
+        gameOver++;
+        finshGame();
     }
     numOfIteration--;
+
     return arrayOfColor;
 }
 
@@ -55,12 +61,12 @@ function checkCell(i) {
     console.log("checkCell");
     let cell = document.getElementById("cell" + i);
     let charOfWord = randomWords.charAt(indexTheFirstInput - i);
-    console.log(indexTheFirstInput - i +"," +  randomWords.charAt(indexTheFirstInput - i));
+    console.log(indexTheFirstInput - i + "," + randomWords.charAt(indexTheFirstInput - i));
     if (cell.value == charOfWord) {
         return "green"
-    }else if (randomWords.includes(cell.value)) {
+    } else if (randomWords.includes(cell.value)) {
         return "yellow"
-    }else if (cell.value != charOfWord) {
+    } else if (cell.value != charOfWord) {
         return "gray"
     }
 
@@ -82,7 +88,7 @@ function showWord() {
 
 function listOfWordsInHebrew() {
     console.log("listOfWordsInHebrew");
-    let words = ["אפרסק","אתרוג","מחברת","רשימה","אבטיח","צפרדע"];
+    let words = ["אפרסק", "אתרוג", "מחברת", "רשימה", "אבטיח", "צפרדע"];
     randomWords = words[Math.floor(Math.random() * words.length)];
 }
 
@@ -99,22 +105,22 @@ function paintASquare() {
 function hebrewKeyboard() {
     console.log("hebrewKeyboard");
     let cell;
-    if(hiddenKeyboard) {
+    if (hiddenKeyboard) {
         let hebrewLetters = ["ק", "ר", "א", "ט", "ו", "ן", "ם", "פ", "ש", "ד", "ג", "כ", "ע", "י", "ח", "ל", "ך", "ף", "ז", "ס", "ב", "ה", "נ", "מ", "צ", "ת", "ץ"];
         let keyboard = document.createElement('div');
         keyboard.setAttribute('class', 'keyboard');
         for (let i = 0; i < 4; i++) {
             let row = document.createElement("div");
             row.setAttribute('class', 'rowKeyboard');
-            if(i == 3){
+            if (i == 3) {
                 let enterButton = document.createElement("button");
                 enterButton.innerText = "Enter";
-                enterButton.setAttribute('onclick','paintASquare()');
+                enterButton.setAttribute('onclick', 'paintASquare()');
                 keyboard.appendChild(enterButton);
                 keyboard.appendChild(row);
                 let deleteButton = document.createElement("button");
                 deleteButton.innerText = "Delete";
-                deleteButton.setAttribute('onclick','');
+                deleteButton.setAttribute('onclick', 'deleteChar()');
                 keyboard.appendChild(deleteButton);
                 keyboard.appendChild(row);
                 break;
@@ -131,6 +137,7 @@ function hebrewKeyboard() {
         document.body.appendChild(keyboard);
     }
     hiddenKeyboard = false;
+
 }
 
 function writingInTextBox() {//מחזיר את המילה המלאה
@@ -141,6 +148,7 @@ function writingInTextBox() {//מחזיר את המילה המלאה
     }
     return theWord;
 }
+
 function writeOnTheLines(key) {
     if (counter == 5) {
         indexTheFirstInput += 5;
@@ -148,39 +156,43 @@ function writeOnTheLines(key) {
         nameOfTheWord = "";
     }
     console.log("writeOnTheLines");
-    let cell = document.getElementById("cell" + (indexTheFirstInput-counter));
+    let cell = document.getElementById("cell" + (indexTheFirstInput - counter));
     cell.value = key.innerText;
     nameOfTheWord += key.innerText;
     counter++;
     console.log(nameOfTheWord);
 }
-function countingPoints(){
+
+function countingPoints() {
     let count = document.getElementById("score");
     count.innerText = score + " " + numOfIteration;
+
 }
-function showHowToPlay(){
+
+function showHowToPlay() {
     let howToPlay = document.createElement('div');
     howToPlay.setAttribute('class', 'howToPlay');
     addPicture();
     document.body.appendChild(howToPlay);
 
 }
-function addPicture(){
+
+function addPicture() {
     let picture = document.createElement('img');
     picture.setAttribute('class', 'picture');
     picture.alt = "howToPlay.png";
     picture.src = "howToPlay.png";
     document.body.appendChild(picture);
+
+
 }
-function gameButtons(){
+
+function gameButtons() {
     let button = document.createElement('div');
     button.setAttribute('class', 'button');
     let showWordButton = document.createElement('button');
     showWordButton.innerText = "Show Word";
     showWordButton.setAttribute('onclick', 'showWord()');
-    let checkWordButton = document.createElement('button');
-    checkWordButton.innerText = "Check Word"; // אפשר להוריד
-    checkWordButton.setAttribute('onclick', 'paintASquare()');
     let howToPlayButton = document.createElement('button');
     howToPlayButton.innerText = "How To Play";
     howToPlayButton.setAttribute('onclick', 'showHowToPlay()');
@@ -191,16 +203,38 @@ function gameButtons(){
     hebrewKeyboardButton.innerText = "Hebrew Keyboard";
     hebrewKeyboardButton.setAttribute('onclick', 'hebrewKeyboard()');
     button.appendChild(showWordButton);
-    button.appendChild(checkWordButton);
     button.appendChild(howToPlayButton);
     button.appendChild(newGameButton);
     button.appendChild(hebrewKeyboardButton);
     document.body.appendChild(button);
 
 }
-function newGame(){
+
+function newGame() {
     location.reload();
 }
+
+function deleteChar() {
+    console.log("counter = " + counter);
+    let cell = document.getElementById("cell" + (indexTheFirstInput - counter + 1));
+    cell.value = "";
+    cell.innerText = "";
+    nameOfTheWord = nameOfTheWord.substring(0, nameOfTheWord.length - 1);
+    counter--;
+    console.log(nameOfTheWord);
+}
+
+function finshGame() {
+    if (gameOver == 6) {
+        alert("Game Over");
+        showWord();
+        setTimeout(() => {location.reload();}
+            , 5000);
+    }
+
+}
+
+
 
 
 
