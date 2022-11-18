@@ -4,6 +4,8 @@ let nameOfTheWord = "";
 let numOfIteration = 6;
 let randomWords = "";
 let score = "Total points:";
+let hiddenKeyboard = true;
+
 
 
 function drawGridBoard() {
@@ -19,7 +21,7 @@ function drawGridBoard() {
             let cell = document.createElement("input");
             cell.setAttribute('id',  'cell' + (j + i*5));
             cell.maxLength = 1;
-            cell.disabled = true;
+            cell.disabled = true;//ביטול מקלדת מחשב
             row.appendChild(cell);
         }
         board.appendChild(row);
@@ -29,18 +31,23 @@ function drawGridBoard() {
 
 function checkWord() {
     console.log("checkWord");
+    let counter = 0;
     let arrayOfColor = [];
     let word = writingInTextBox();
-    if (word == randomWords) {
-        alert("Well done you made it! , try again to improve your vocabulary");
-        countingPoints();
-    } else {
-        for (let i = indexTheFirstInput; i >= 0; i--) {
-            arrayOfColor[i] = checkCell(i);
-            console.log(arrayOfColor[i]);
+    for (let i = indexTheFirstInput; i >= 0; i--) {
+        arrayOfColor[i] = checkCell(i);
+        console.log(arrayOfColor[i]);
+        counter++;
+        if(counter == 5){
+            break;
         }
-        numOfIteration--;
     }
+    if (word == randomWords) {
+        setTimeout(() => {alert("Well done you made it! , try again to improve your vocabulary");}
+            , 2000);
+        countingPoints();
+    }
+    numOfIteration--;
     return arrayOfColor;
 }
 
@@ -91,21 +98,34 @@ function paintASquare() {
 
 function hebrewKeyboard() {
     console.log("hebrewKeyboard");
-    let hebrewLetters = ["ק", "ר", "א", "ט", "ו", "ן", "ם", "פ", "ש", "ד", "ג", "כ", "ע", "י", "ח", "ל", "ך", "ף", "ז", "ס", "ב", "ה", "נ", "מ", "צ", "ת", "ץ"];
-    let keyboard = document.createElement('div');
-    keyboard.setAttribute('class', 'keyboard');
-    for (let i = 0; i < 3; i++) {
-        let row = document.createElement("div");
-        row.setAttribute('class', 'rowKeyboard');
-        for (let j = 0; j < 9; j++) {
-            let cell = document.createElement("button");
-            cell.innerText = hebrewLetters[j + (i * 9)];
-            cell.setAttribute('onclick', 'writeOnTheLines(this)');
-            row.appendChild(cell);
+    let cell;
+    if(hiddenKeyboard) {
+        let hebrewLetters = ["ק", "ר", "א", "ט", "ו", "ן", "ם", "פ", "ש", "ד", "ג", "כ", "ע", "י", "ח", "ל", "ך", "ף", "ז", "ס", "ב", "ה", "נ", "מ", "צ", "ת", "ץ"];
+        let keyboard = document.createElement('div');
+        keyboard.setAttribute('class', 'keyboard');
+        for (let i = 0; i < 4; i++) {
+            let row = document.createElement("div");
+            row.setAttribute('class', 'rowKeyboard');
+            if(i == 3){
+                let enterButton = document.createElement("button");
+                enterButton.innerText = "Enter";
+                enterButton.setAttribute('onclick','paintASquare()');
+                keyboard.appendChild(enterButton);
+                keyboard.appendChild(row);
+                break;
+            }
+            for (let j = 0; j < 9; j++) {
+                cell = document.createElement("button");
+                cell.innerText = hebrewLetters[j + (i * 9)];
+                cell.setAttribute('onclick', 'writeOnTheLines(this)');
+                row.appendChild(cell);
+            }
+            keyboard.appendChild(row);
         }
-        keyboard.appendChild(row);
+
+        document.body.appendChild(keyboard);
     }
-    document.body.appendChild(keyboard);
+    hiddenKeyboard = false;
 
 }
 
