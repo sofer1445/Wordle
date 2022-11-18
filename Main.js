@@ -58,9 +58,9 @@ function checkCell(i) {
     console.log(indexTheFirstInput - i +"," +  randomWords.charAt(indexTheFirstInput - i));
     if (cell.value == charOfWord) {
         return "green"
-    } else if (randomWords.includes(cell.value)) {
+    }else if (randomWords.includes(cell.value)) {
         return "yellow"
-    } else if (cell.value != charOfWord) {
+    }else if (cell.value != charOfWord) {
         return "gray"
     }
 
@@ -112,6 +112,11 @@ function hebrewKeyboard() {
                 enterButton.setAttribute('onclick','paintASquare()');
                 keyboard.appendChild(enterButton);
                 keyboard.appendChild(row);
+                let deleteButton = document.createElement("button");
+                deleteButton.innerText = "Delete";
+                deleteButton.setAttribute('onclick','');
+                keyboard.appendChild(deleteButton);
+                keyboard.appendChild(row);
                 break;
             }
             for (let j = 0; j < 9; j++) {
@@ -126,7 +131,6 @@ function hebrewKeyboard() {
         document.body.appendChild(keyboard);
     }
     hiddenKeyboard = false;
-
 }
 
 function writingInTextBox() {//מחזיר את המילה המלאה
@@ -137,7 +141,6 @@ function writingInTextBox() {//מחזיר את המילה המלאה
     }
     return theWord;
 }
-
 function writeOnTheLines(key) {
     if (counter == 5) {
         indexTheFirstInput += 5;
@@ -154,7 +157,6 @@ function writeOnTheLines(key) {
 function countingPoints(){
     let count = document.getElementById("score");
     count.innerText = score + " " + numOfIteration;
-
 }
 function showHowToPlay(){
     let howToPlay = document.createElement('div');
@@ -169,8 +171,6 @@ function addPicture(){
     picture.alt = "howToPlay.png";
     picture.src = "howToPlay.png";
     document.body.appendChild(picture);
-
-
 }
 function gameButtons(){
     let button = document.createElement('div');
@@ -179,7 +179,7 @@ function gameButtons(){
     showWordButton.innerText = "Show Word";
     showWordButton.setAttribute('onclick', 'showWord()');
     let checkWordButton = document.createElement('button');
-    checkWordButton.innerText = "Check Word";
+    checkWordButton.innerText = "Check Word"; // אפשר להוריד
     checkWordButton.setAttribute('onclick', 'paintASquare()');
     let howToPlayButton = document.createElement('button');
     howToPlayButton.innerText = "How To Play";
