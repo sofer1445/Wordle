@@ -38,11 +38,11 @@ function checkWord() {
         arrayOfColor[i] = checkCell(i);
         console.log(arrayOfColor[i]);
         counter++;
-        if (counter == 5) {
+        if (counter === 5) {
             break;
         }
     }
-    if (word == randomWords) {
+    if (word === randomWords) {
         setTimeout(() => {
                 alert("Well done you made it! , try again to improve your vocabulary");
             }
@@ -83,12 +83,14 @@ function showWord() {
         document.getElementsByTagName("input") [i].value = char;
         i--;
     }
-
 }
 
 function listOfWordsInHebrew() {
     console.log("listOfWordsInHebrew");
-    let words = ["אפרסק", "אתרוג", "מחברת", "רשימה", "אבטיח", "צפרדע"];
+    let words = ["אפרסק", "אתרוג", "מחברת", "רשימה", "אבטיח",] ;
+        // "גירפה", "צפרדע","נקודה", "מועצה", "עיבוד",
+        // "תאגיד","תפילה", "צילום", "חישוב","בקבוק",
+        // "תהליך","אישור","ילקוט","ללמוד","סוודר"];
     randomWords = words[Math.floor(Math.random() * words.length)];
 }
 
@@ -116,8 +118,8 @@ function hebrewKeyboard() {
                 let enterButton = document.createElement("button");
                 enterButton.innerText = "Enter";
                 enterButton.setAttribute('onclick', 'paintASquare()');
-                keyboard.appendChild(enterButton);
-                keyboard.appendChild(row);
+              keyboard.appendChild(enterButton);
+              keyboard.appendChild(row);
                 let deleteButton = document.createElement("button");
                 deleteButton.innerText = "Delete";
                 deleteButton.setAttribute('onclick', 'deleteChar()');
@@ -133,7 +135,6 @@ function hebrewKeyboard() {
             }
             keyboard.appendChild(row);
         }
-
         document.body.appendChild(keyboard);
     }
     hiddenKeyboard = false;
@@ -183,8 +184,9 @@ function addPicture() {
     picture.alt = "howToPlay.png";
     picture.src = "howToPlay.png";
     document.body.appendChild(picture);
-
-
+    setTimeout(() => {
+        picture.remove();
+        ;}, 5000);
 }
 
 function gameButtons() {
@@ -223,9 +225,8 @@ function deleteChar() {
     counter--;
     console.log(nameOfTheWord);
 }
-
 function finshGame() {
-    if (gameOver == 6) {
+    if (gameOver === 6) {
         alert("Game Over");
         showWord();
         setTimeout(() => {location.reload();}
