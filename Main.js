@@ -48,7 +48,7 @@ function checkWord() {
             }
             , 2000);
         countingPoints();
-    }else {
+    } else {
         gameOver++;
         finshGame();
     }
@@ -60,17 +60,16 @@ function checkWord() {
 function checkCell(i) {
     console.log("checkCell");
     let cell = document.getElementById("cell" + i);
+    let letter = cell.innerText;
     let charOfWord = randomWords.charAt(indexTheFirstInput - i);
     console.log(indexTheFirstInput - i + "," + randomWords.charAt(indexTheFirstInput - i));
     if (cell.value == charOfWord) {
         return "green"
     } else if (randomWords.includes(cell.value)) {
-        return "yellow"
+        return "orange"
     } else if (cell.value != charOfWord) {
         return "gray"
     }
-
-
 }
 
 function showWord() {
@@ -87,21 +86,28 @@ function showWord() {
 
 function listOfWordsInHebrew() {
     console.log("listOfWordsInHebrew");
-    let words = ["אפרסק", "אתרוג", "מחברת", "רשימה", "אבטיח",] ;
-        // "גירפה", "צפרדע","נקודה", "מועצה", "עיבוד",
-        // "תאגיד","תפילה", "צילום", "חישוב","בקבוק",
-        // "תהליך","אישור","ילקוט","ללמוד","סוודר"];
+    let words = ["אפרסק", "אתרוג", "מחברת", "רשימה", "אבטיח",];
+    // "גירפה", "צפרדע","נקודה", "מועצה", "עיבוד",
+    // "תאגיד","תפילה", "צילום", "חישוב","בקבוק",
+    // "תהליך","אישור","ילקוט","ללמוד","סוודר"];
     randomWords = words[Math.floor(Math.random() * words.length)];
 }
 
 function paintASquare() {
     console.log("paintASquare");
+    if (counter % 5 != 0) {
+        alert("You need to write a 5 letter word, try again :)");
+        return;
+    }
     let arrayOfColor = checkWord();
     for (let i = 0; i < arrayOfColor.length; i++) {
         document.getElementById("cell" + i).style.backgroundColor = arrayOfColor[i];
-
     }
-
+    if (counter == 5) {
+        indexTheFirstInput += 5;
+        counter = 0;
+        nameOfTheWord = "";
+    }
 }
 
 function hebrewKeyboard() {
@@ -118,8 +124,8 @@ function hebrewKeyboard() {
                 let enterButton = document.createElement("button");
                 enterButton.innerText = "Enter";
                 enterButton.setAttribute('onclick', 'paintASquare()');
-              keyboard.appendChild(enterButton);
-              keyboard.appendChild(row);
+                keyboard.appendChild(enterButton);
+                keyboard.appendChild(row);
                 let deleteButton = document.createElement("button");
                 deleteButton.innerText = "Delete";
                 deleteButton.setAttribute('onclick', 'deleteChar()');
@@ -151,17 +157,14 @@ function writingInTextBox() {//מחזיר את המילה המלאה
 }
 
 function writeOnTheLines(key) {
-    if (counter == 5) {
-        indexTheFirstInput += 5;
-        counter = 0;
-        nameOfTheWord = "";
-    }
     console.log("writeOnTheLines");
-    let cell = document.getElementById("cell" + (indexTheFirstInput - counter));
-    cell.value = key.innerText;
-    nameOfTheWord += key.innerText;
-    counter++;
-    console.log(nameOfTheWord);
+    if (counter != 5) {
+        let cell = document.getElementById("cell" + (indexTheFirstInput - counter));
+        cell.value = key.innerText;
+        nameOfTheWord += key.innerText;
+        counter++;
+        console.log(nameOfTheWord);
+    }
 }
 
 function countingPoints() {
@@ -175,7 +178,6 @@ function showHowToPlay() {
     howToPlay.setAttribute('class', 'howToPlay');
     addPicture();
     document.body.appendChild(howToPlay);
-
 }
 
 function addPicture() {
@@ -186,7 +188,8 @@ function addPicture() {
     document.body.appendChild(picture);
     setTimeout(() => {
         picture.remove();
-        ;}, 5000);
+        ;
+    }, 5000);
 }
 
 function gameButtons() {
@@ -218,24 +221,24 @@ function newGame() {
 
 function deleteChar() {
     console.log("counter = " + counter);
-    let cell = document.getElementById("cell" + (indexTheFirstInput - counter + 1));
-    cell.value = "";
-    cell.innerText = "";
-    nameOfTheWord = nameOfTheWord.substring(0, nameOfTheWord.length - 1);
-    counter--;
-    console.log(nameOfTheWord);
+    if (counter) {
+        let cell = document.getElementById("cell" + (indexTheFirstInput - counter + 1));
+        cell.value = "";
+        cell.innerText = "";
+        nameOfTheWord = nameOfTheWord.substring(0, nameOfTheWord.length - 1);
+        counter--;
+        console.log(nameOfTheWord);
+    }
 }
+
 function finshGame() {
     if (gameOver === 6) {
         alert("Game Over");
         showWord();
-        setTimeout(() => {location.reload();}
+        setTimeout(() => {
+                location.reload();
+            }
             , 5000);
     }
 
 }
-
-
-
-
-

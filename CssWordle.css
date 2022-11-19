@@ -1,6 +1,7 @@
 hr {
     width: 500px;
 }
+
 h1 {
     color: #0a0a0a;
     text-align: center;
@@ -21,6 +22,7 @@ div[class='row'] {
     padding: 0;
     background-color: #ffffff;
 }
+
 div[class='button'] {
     display: flex;
     flex-wrap: wrap;
@@ -33,8 +35,11 @@ div[class='button'] {
     background-color: #ffffff;
     font-family: Arial, Helvetica, sans-serif;
 }
-button[onclick='paintASquare()']{
-    width: 50%;
+
+button[onclick='paintASquare()'] {
+    justify-content: center;
+    align-items: center;
+    width: 30%;
     height: 50%;
     margin: 0;
     padding: 20px;
@@ -45,11 +50,11 @@ button[onclick='paintASquare()']{
     font-weight: bold;
     color: #000000;
     cursor: pointer;
-    justify-content: center;
-    align-items: center;
+
 }
-button[onclick='deleteChar()']{
-    width: 50%;
+
+button[onclick='deleteChar()'] {
+    width: 30%;
     height: 50%;
     margin: 0%;
     padding: 20px;
@@ -62,7 +67,9 @@ button[onclick='deleteChar()']{
     font-weight: bold;
     color: #000000;
     cursor: pointer;
+
 }
+
 .row::before {
     content: "";
     grid-column: 1 / -1;
@@ -71,10 +78,12 @@ button[onclick='deleteChar()']{
     border-radius: 3px;
     margin: 2px;
 }
+
 .row > *:first-child {
     grid-column: 1 / 1;
     grid-row: 1 / 1;
 }
+
 input {
     border: 2px solid gray;
     border-radius: 3px;
@@ -100,11 +109,12 @@ div[class='rowKeyboard'] {
     height: 100%;
     margin: 0;
     padding: 0;
+
 }
 
 button[onclick='writeOnTheLines(this)'] {
-    width: 10%;
-    height: 45px;
+    width: 5%;
+    height: 40px;
 }
 
 img[class='picture'] { /*צריך למצוא איך להקפיץ את הסבר המשחק בצורה יפה*/
