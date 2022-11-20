@@ -6,6 +6,7 @@ let randomWords = "";
 let score = "Total points:";
 let hiddenKeyboard = true;
 let gameOver = 0;
+let randomWordList = []; // משהו שראיתי במשחק אם מכניסים מילה שלא קיימת קופץ הערה (אופציה להתגבר על הבאג של אות ראשונה)
 
 
 function drawGridBoard() {
@@ -88,7 +89,7 @@ function showWord() {
 
 function listOfWordsInHebrew() {
     console.log("listOfWordsInHebrew");
-    let words = ["אפרסק", "אתרוג", "מחברת", "רשימה", "אבטיח","מכללה"];
+    randomWordList = ["אפרסק", "אתרוג", "מחברת", "רשימה", "אבטיח","מכללה"];
     // "גירפה", "צפרדע","נקודה", "מועצה", "עיבוד",
     // "תאגיד","תפילה", "צילום", "חישוב","בקבוק",
     // "תהליך","אישור","ילקוט","ללמוד","סוודר"];
@@ -110,16 +111,16 @@ function paintASquare() {
             partOfTheWord += randomWords.charAt(i);
             console.log(partOfTheWord);
         }
-
         if ((!stringOfColor.includes(arrayOfColor[indexTheFirstInput-i].values().next().value)) || (countHowManyTimesTheLetter(partOfTheWord) > 1)) {
             stringOfColor += arrayOfColor[indexTheFirstInput-i].values().next().value;
-
-            console.log(arrayOfColor[indexTheFirstInput-i].keys().next().value);
             document.getElementById("cell" + (indexTheFirstInput-i)).style.backgroundColor = arrayOfColor[indexTheFirstInput-i].keys().next().value;
             console.log(arrayOfColor[indexTheFirstInput-i].keys().next().value);
 
         }else {
             document.getElementById("cell" + (indexTheFirstInput-i)).style.backgroundColor = "gray";
+        }
+        if((arrayOfColor[indexTheFirstInput-i].keys().next().value == "gray") || (partOfTheWord.charAt(i)) == (arrayOfColor[indexTheFirstInput-i].values().next().value)){
+            document.getElementById("cell" + (indexTheFirstInput-i)).style.backgroundColor = "green";
         }
     }
     if (counter == 5) {
@@ -263,6 +264,7 @@ function finshGame() {
     }
 
 }
+
 function countHowManyTimesTheLetter(string) {
     console.log("countHowManyTimesTheLetter");
     console.log(string);
