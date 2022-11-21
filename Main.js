@@ -93,7 +93,7 @@ function listOfWordsInHebrew() {
     // "גירפה", "צפרדע","נקודה", "מועצה", "עיבוד",
     // "תאגיד","תפילה", "צילום", "חישוב","בקבוק",
     // "תהליך","אישור","ילקוט","ללמוד","סוודר"];
-    randomWords = words[Math.floor(Math.random() * words.length)];
+    randomWords = randomWordList[Math.floor(Math.random() * randomWordList.length)];
     console.log(randomWords);
 }
 
@@ -117,9 +117,9 @@ function paintASquare() {
             console.log(arrayOfColor[indexTheFirstInput-i].keys().next().value);
 
         }else {
-            document.getElementById("cell" + (indexTheFirstInput-i)).style.backgroundColor = "gray";
+            document.getElementById("cell" + (indexTheFirstInput-i)).style.backgroundColor = arrayOfColor[indexTheFirstInput-i].keys().next().value;
         }
-        if((arrayOfColor[indexTheFirstInput-i].keys().next().value == "gray") || (partOfTheWord.charAt(i)) == (arrayOfColor[indexTheFirstInput-i].values().next().value)){
+        if((arrayOfColor[indexTheFirstInput-i].keys().next().value === "gray") && (partOfTheWord.charAt(i)) === (arrayOfColor[i].values().next().value)){//לבדוק פה את התנאי
             document.getElementById("cell" + (indexTheFirstInput-i)).style.backgroundColor = "green";
         }
     }
