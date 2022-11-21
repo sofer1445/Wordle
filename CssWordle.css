@@ -48,7 +48,7 @@ div[class='button'] {
 button[onclick='paintASquare()'] {
     justify-content: center;
     align-items: center;
-    width: 30%;
+    width: 50%;
     height: 50%;
     margin: 0;
     padding: 20px;
@@ -61,11 +61,10 @@ button[onclick='paintASquare()'] {
     cursor: pointer;
 }
 
-
 button[onclick='deleteChar()'] {
     justify-content: center;
     align-items: center;
-    width: 30%;
+    width: 50%;
     height: 50%;
     margin: 0%;
     padding: 20px;

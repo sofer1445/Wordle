@@ -88,7 +88,12 @@ function showWord() {
         document.getElementById("cell" + (i)).value = char;
         i--;
     }
+    setTimeout(() => {
+        alert("You are starting a new game ! :)")
+        newGame();
+    }, 3000);
 }
+
 
 function listOfWordsInHebrew() {
     console.log("listOfWordsInHebrew");
