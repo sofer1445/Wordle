@@ -46,7 +46,10 @@ function checkWord() {
             }
             , 2000);
         countingPoints();
-    } else {
+        setTimeout(() => {
+            newGame();}, 6000);
+    }
+     else {
         gameOver++;
         finshGame();
     }
@@ -64,13 +67,13 @@ function checkCell(i) {
     let charOfWord = randomWords.charAt(indexTheFirstInput - i);
     console.log(indexTheFirstInput - i + "," + randomWords.charAt(indexTheFirstInput - i));
     if (cell.value == charOfWord) {
-        map.set("green",cell.value);
+        map.set("green", cell.value);
         return map;
     } else if (randomWords.includes(cell.value)) {
-        map.set("yellow",cell.value);
+        map.set("yellow", cell.value);
         return map;
     } else if (cell.value != charOfWord) {
-        map.set("gray",cell.value);
+        map.set("gray", cell.value);
         return map;
     }
 }
@@ -89,7 +92,7 @@ function showWord() {
 
 function listOfWordsInHebrew() {
     console.log("listOfWordsInHebrew");
-    randomWordList = ["אפרסק", "אתרוג", "מחברת", "רשימה", "אבטיח","מכללה"];
+    randomWordList = ["אפרסק", "אתרוג", "מחברת", "רשימה", "אבטיח", "מכללה"];
     // "גירפה", "צפרדע","נקודה", "מועצה", "עיבוד",
     // "תאגיד","תפילה", "צילום", "חישוב","בקבוק",
     // "תהליך","אישור","ילקוט","ללמוד","סוודר"];
@@ -107,20 +110,21 @@ function paintASquare() {
     let stringOfColor = "";
     let partOfTheWord = "";
     for (let i = 0; i < arrayOfColor.length; i++) {
-        if(partOfTheWord.length <= 5) {
+        if (partOfTheWord.length <= 5) {
             partOfTheWord += randomWords.charAt(i);
             console.log(partOfTheWord);
         }
-        if ((!stringOfColor.includes(arrayOfColor[indexTheFirstInput-i].values().next().value)) || (countHowManyTimesTheLetter(partOfTheWord) > 1)) {
-            stringOfColor += arrayOfColor[indexTheFirstInput-i].values().next().value;
-            document.getElementById("cell" + (indexTheFirstInput-i)).style.backgroundColor = arrayOfColor[indexTheFirstInput-i].keys().next().value;
-            console.log(arrayOfColor[indexTheFirstInput-i].keys().next().value);
+        if ((!stringOfColor.includes(arrayOfColor[indexTheFirstInput - i].values().next().value)) ||
+            (countHowManyTimesTheLetter(partOfTheWord) > 1)) {
 
-        }else {
-            document.getElementById("cell" + (indexTheFirstInput-i)).style.backgroundColor = arrayOfColor[indexTheFirstInput-i].keys().next().value;
+            stringOfColor += arrayOfColor[indexTheFirstInput - i].values().next().value;
+            document.getElementById("cell" + (indexTheFirstInput - i)).style.backgroundColor = arrayOfColor[indexTheFirstInput - i].keys().next().value;
+
+        } else {
+            document.getElementById("cell" + (indexTheFirstInput - i)).style.backgroundColor = arrayOfColor[indexTheFirstInput - i].keys().next().value;
         }
-        if((arrayOfColor[indexTheFirstInput-i].keys().next().value === "gray") && (partOfTheWord.charAt(i)) === (arrayOfColor[i].values().next().value)){//לבדוק פה את התנאי
-            document.getElementById("cell" + (indexTheFirstInput-i)).style.backgroundColor = "green";
+        if ((arrayOfColor[indexTheFirstInput - i].keys().next().value === "gray") && (partOfTheWord.charAt(i)) === (arrayOfColor[i].values().next().value)) {//לבדוק פה את התנאי
+            document.getElementById("cell" + (indexTheFirstInput - i)).style.backgroundColor = "green";
         }
     }
     if (counter == 5) {
@@ -255,7 +259,7 @@ function deleteChar() {
 
 function finshGame() {
     if (gameOver === 6) {
-        alert("Game Over" );
+        alert("Game Over");
         showWord()
         setTimeout(() => {
                 location.reload();
@@ -269,7 +273,7 @@ function countHowManyTimesTheLetter(string) {
     console.log("countHowManyTimesTheLetter");
     console.log(string);
     let count = 0;
-    if(string.length == 0){
+    if (string.length == 0) {
         return 0;
     }
     let letter = string.charAt(string.length - 1);
