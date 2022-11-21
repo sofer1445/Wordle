@@ -123,9 +123,9 @@ function paintASquare() {
         } else {
             document.getElementById("cell" + (indexTheFirstInput - i)).style.backgroundColor = arrayOfColor[indexTheFirstInput - i].keys().next().value;
         }
-        if ((arrayOfColor[indexTheFirstInput - i].keys().next().value === "gray") && (partOfTheWord.charAt(i)) === (arrayOfColor[i].values().next().value)) {//לבדוק פה את התנאי
-            document.getElementById("cell" + (indexTheFirstInput - i)).style.backgroundColor = "green";
-        }
+        // if ((arrayOfColor[indexTheFirstInput - i].keys().next().value === "gray") && (partOfTheWord.charAt(i)) === (arrayOfColor[i].values().next().value)) {//לבדוק פה את התנאי
+        //     document.getElementById("cell" + (indexTheFirstInput - i)).style.backgroundColor = "green";
+        // }
     }
     if (counter == 5) {
         indexTheFirstInput += 5;
@@ -284,5 +284,5 @@ function countHowManyTimesTheLetter(string) {
     }
     console.log("count = " + count);
     return count;
-
 }
+
