@@ -77,7 +77,9 @@ button[onclick='deleteChar()'] {
     cursor: pointer;
 
 }
-
+/*.image{*/
+/*    background: url("https://www.w3schools.com/css/img_fjords.jpg");*/
+/*}*/
 .row::before {
     content: "";
     grid-column: 1 / -1;
@@ -120,7 +122,7 @@ div[class='rowKeyboard'] {
 
 }
 
-button[onclick='writeOnTheLines(this)'] {
+button[onclick ='writeOnTheLines(this)'] {
     width: 5%;
     height: 40px;
 }

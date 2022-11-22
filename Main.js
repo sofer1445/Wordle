@@ -124,14 +124,18 @@ function paintASquare() {
             cout++;
         }
 
-        if ((!stringOfColor.includes(arrayOfColor[i].values().next().value)) ||
+        if ((!stringOfColor.includes(arrayOfColor[i].values().next().value)) ^
             (countHowManyTimesTheLetter(partOfTheWord) > 1)) {
 
             stringOfColor += arrayOfColor[i].values().next().value;
             document.getElementById("cell" + (i)).style.backgroundColor = arrayOfColor[i].keys().next().value;
+            document.getElementById("char " + (arrayOfColor[i].values().next().value)).style.backgroundColor = arrayOfColor[i].keys().next().value;
 
+                //.id = 'char ' + (arrayOfColor[i].values().next().value).backgroundColor = arrayOfColor[i].keys().next().value;
         } else {
             document.getElementById("cell" + (i)).style.backgroundColor = arrayOfColor[i].keys().next().value;
+            document.getElementById("char " + (arrayOfColor[i].values().next().value)).style.backgroundColor = arrayOfColor[i].keys().next().value;
+            document.getElementById("char " + (arrayOfColor[i].values().next().value)).disabled = true;
         }
 
     }
@@ -168,7 +172,8 @@ function hebrewKeyboard() {
             for (let j = 0; j < 9; j++) {
                 cell = document.createElement("button");
                 cell.innerText = hebrewLetters[j + (i * 9)];
-                cell.setAttribute('onclick', 'writeOnTheLines(this)');
+                cell.setAttribute('onclick' , 'writeOnTheLines(this)');
+                cell.setAttribute('id', 'char ' + hebrewLetters[j + (i * 9)]);
                 row.appendChild(cell);
             }
             keyboard.appendChild(row);
@@ -291,4 +296,3 @@ function countHowManyTimesTheLetter(string) {
     console.log("count = " + count);
     return count;
 }
-
