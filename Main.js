@@ -6,7 +6,7 @@ let randomWords = "";
 let score = "Total points:";
 let hiddenKeyboard = true;
 let gameOver = 0;
-let randomWordList = []; // משהו שראיתי במשחק אם מכניסים מילה שלא קיימת קופץ הערה (אופציה להתגבר על הבאג של אות ראשונה)
+let randomWordList = [];
 
 
 function drawGridBoard() {
@@ -47,9 +47,9 @@ function checkWord() {
             , 2000);
         countingPoints();
         setTimeout(() => {
-            newGame();}, 6000);
-    }
-    else {
+            newGame();
+        }, 6000);
+    } else {
         gameOver++;
         finshGame();
     }
@@ -57,6 +57,7 @@ function checkWord() {
 
     return arrayOfColor;
 }
+
 function checkCell(i) {
     console.log("checkCell");
     let map = new Map();
@@ -112,30 +113,32 @@ function paintASquare() {
         alert("You need to write a 5 letter word, try again :)");
         return;
     }
-    console.log(" 111 " +arrayOfColor.length);
+
     let stringOfColor = "";
     let partOfTheWord = "";
     let cout = 0;
-    console.log(cout+ " 115 ")
-    for (let i = indexTheFirstInput-4; i < arrayOfColor.length; i++) {
+
+    for (let i = indexTheFirstInput - 4; i < arrayOfColor.length; i++) {
         if (partOfTheWord.length <= 5) {
             partOfTheWord += randomWords.charAt(cout);
-            console.log( "119 " + partOfTheWord);
+
             cout++;
         }
 
-        if ((!stringOfColor.includes(arrayOfColor[i].values().next().value)) ^
+        if ((!stringOfColor.includes(arrayOfColor[i].values().next().value)) ||
             (countHowManyTimesTheLetter(partOfTheWord) > 1)) {
 
             stringOfColor += arrayOfColor[i].values().next().value;
             document.getElementById("cell" + (i)).style.backgroundColor = arrayOfColor[i].keys().next().value;
             document.getElementById("char " + (arrayOfColor[i].values().next().value)).style.backgroundColor = arrayOfColor[i].keys().next().value;
 
-                //.id = 'char ' + (arrayOfColor[i].values().next().value).backgroundColor = arrayOfColor[i].keys().next().value;
+
         } else {
             document.getElementById("cell" + (i)).style.backgroundColor = arrayOfColor[i].keys().next().value;
             document.getElementById("char " + (arrayOfColor[i].values().next().value)).style.backgroundColor = arrayOfColor[i].keys().next().value;
-            document.getElementById("char " + (arrayOfColor[i].values().next().value)).disabled = true;
+            if(arrayOfColor[i].keys().next().value === "gray"){
+                document.getElementById("char " + (arrayOfColor[i].values().next().value)).disabled = true;
+            }
         }
 
     }
@@ -172,7 +175,7 @@ function hebrewKeyboard() {
             for (let j = 0; j < 9; j++) {
                 cell = document.createElement("button");
                 cell.innerText = hebrewLetters[j + (i * 9)];
-                cell.setAttribute('onclick' , 'writeOnTheLines(this)');
+                cell.setAttribute('onclick', 'writeOnTheLines(this)');
                 cell.setAttribute('id', 'char ' + hebrewLetters[j + (i * 9)]);
                 row.appendChild(cell);
             }
@@ -184,7 +187,7 @@ function hebrewKeyboard() {
 
 }
 
-function writingInTextBox() {//מחזיר את המילה המלאה
+function writingInTextBox() {
     console.log("writingInTextBox");
     let theWord = "";
     if (nameOfTheWord.length == 5) {
