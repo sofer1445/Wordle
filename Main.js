@@ -8,6 +8,18 @@ let hiddenKeyboard = true;
 let gameOver = 0;
 let randomWordList = [];
 
+const ROW_NUMBER = 6;
+const COLUMN_NUMBER = 5;
+const TIME_OUT5SEC = 5000;
+const TIME_OUT2SEC = 2000;
+const TIME_OUT6SEC = 6000;
+const TIME_OUT3SEC = 3000;
+const ROW_KEY_BOARD = 4;
+const LETTERS_IN_LINES = 9;
+
+
+
+
 
 function drawGridBoard() {
     console.log("drawGridBoard");
@@ -15,14 +27,14 @@ function drawGridBoard() {
     gameButtons();
     let board = document.createElement('div');
     board.setAttribute('class', 'board');
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < ROW_NUMBER; i++) {
         let row = document.createElement("div");
         row.setAttribute('class', 'row');
-        for (let j = 0; j < 5; j++) {
+        for (let j = 0; j < COLUMN_NUMBER; j++) {
             let cell = document.createElement("input");
-            cell.setAttribute('id', 'cell' + (j + i * 5));
+            cell.setAttribute('id', 'cell' + (j + i * COLUMN_NUMBER));
             cell.maxLength = 1;
-            cell.disabled = true;//ביטול מקלדת מחשב
+            cell.disabled = true;
             row.appendChild(cell);
         }
         board.appendChild(row);
@@ -44,14 +56,14 @@ function checkWord() {
         setTimeout(() => {
                 alert("Well done you made it! , try again to improve your vocabulary");
             }
-            , 2000);
+            , TIME_OUT2SEC);
         countingPoints();
         setTimeout(() => {
             newGame();
-        }, 6000);
+        }, TIME_OUT6SEC);
     } else {
         gameOver++;
-        finshGame();
+        finishGame();
     }
     numOfIteration--;
 
@@ -62,18 +74,17 @@ function checkCell(i) {
     console.log("checkCell");
     let map = new Map();
     let cell = document.getElementById("cell" + i);
-    // let letter = cell.innerText;
     console.log(cell.value);
 
     let charOfWord = randomWords.charAt(indexTheFirstInput - i);
     console.log(indexTheFirstInput - i + "," + randomWords.charAt(indexTheFirstInput - i));
-    if (cell.value == charOfWord) {
+    if (cell.value === charOfWord) {
         map.set("green", cell.value);
         return map;
     } else if (randomWords.includes(cell.value)) {
         map.set("yellow", cell.value);
         return map;
-    } else if (cell.value != charOfWord) {
+    } else if (cell.value !== charOfWord) {
         map.set("gray", cell.value);
         return map;
     }
@@ -92,15 +103,15 @@ function showWord() {
     setTimeout(() => {
         alert("You are starting a new game ! :)")
         newGame();
-    }, 3000);
+    }, TIME_OUT3SEC);
 }
 
 function listOfWordsInHebrew() {
     console.log("listOfWordsInHebrew");
-    randomWordList = ["אפרסק", "אתרוג", "מחברת", "רשימה", "אבטיח", "מכללה"];
-    // "גירפה", "צפרדע","נקודה", "מועצה", "עיבוד",
-    // "תאגיד","תפילה", "צילום", "חישוב","בקבוק",
-    // "תהליך","אישור","ילקוט","ללמוד","סוודר"];
+    randomWordList = ["אפרסק", "אתרוג", "מחברת", "רשימה", "אבטיח", "מכללה",
+        "גירפה", "צפרדע", "נקודה", "מועצה", "עיבוד",
+        "תאגיד", "תפילה", "צילום", "חישוב", "בקבוק",
+        "תהליך", "אישור", "ילקוט", "ללמוד", "סוודר"];
     randomWords = randomWordList[Math.floor(Math.random() * randomWordList.length)];
     console.log(randomWords);
 }
@@ -109,20 +120,20 @@ function paintASquare() {
     let arrayOfColor = checkWord();
     console.log("paintASquare");
 
-    if (counter % 5 != 0) {
+    if (counter % COLUMN_NUMBER !== 0) {
         alert("You need to write a 5 letter word, try again :)");
         return;
     }
 
     let stringOfColor = "";
     let partOfTheWord = "";
-    let cout = 0;
+    let count = 0;
 
     for (let i = indexTheFirstInput - 4; i < arrayOfColor.length; i++) {
-        if (partOfTheWord.length <= 5) {
-            partOfTheWord += randomWords.charAt(cout);
+        if (partOfTheWord.length <= COLUMN_NUMBER) {
+            partOfTheWord += randomWords.charAt(count);
 
-            cout++;
+            count++;
         }
 
         if ((!stringOfColor.includes(arrayOfColor[i].values().next().value)) ||
@@ -136,13 +147,13 @@ function paintASquare() {
         } else {
             document.getElementById("cell" + (i)).style.backgroundColor = arrayOfColor[i].keys().next().value;
             document.getElementById("char " + (arrayOfColor[i].values().next().value)).style.backgroundColor = arrayOfColor[i].keys().next().value;
-            if(arrayOfColor[i].keys().next().value === "gray"){
+            if (arrayOfColor[i].keys().next().value === "gray") {
                 document.getElementById("char " + (arrayOfColor[i].values().next().value)).disabled = true;
             }
         }
 
     }
-    if (counter == 5) {
+    if (counter === 5) {
         indexTheFirstInput += 5;
         counter = 0;
         nameOfTheWord = "";
@@ -156,10 +167,10 @@ function hebrewKeyboard() {
         let hebrewLetters = ["ק", "ר", "א", "ט", "ו", "ן", "ם", "פ", "ש", "ד", "ג", "כ", "ע", "י", "ח", "ל", "ך", "ף", "ז", "ס", "ב", "ה", "נ", "מ", "צ", "ת", "ץ"];
         let keyboard = document.createElement('div');
         keyboard.setAttribute('class', 'keyboard');
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < ROW_KEY_BOARD; i++) {
             let row = document.createElement("div");
             row.setAttribute('class', 'rowKeyboard');
-            if (i == 3) {
+            if (i === 3) {
                 let enterButton = document.createElement("button");
                 enterButton.innerText = "Enter";
                 enterButton.setAttribute('onclick', 'paintASquare()');
@@ -172,9 +183,9 @@ function hebrewKeyboard() {
                 keyboard.appendChild(row);
                 break;
             }
-            for (let j = 0; j < 9; j++) {
+            for (let j = 0; j < LETTERS_IN_LINES; j++) {
                 cell = document.createElement("button");
-                cell.innerText = hebrewLetters[j + (i * 9)];
+                cell.innerText = hebrewLetters[j + (i * LETTERS_IN_LINES)];
                 cell.setAttribute('onclick', 'writeOnTheLines(this)');
                 cell.setAttribute('id', 'char ' + hebrewLetters[j + (i * 9)]);
                 row.appendChild(cell);
@@ -190,7 +201,7 @@ function hebrewKeyboard() {
 function writingInTextBox() {
     console.log("writingInTextBox");
     let theWord = "";
-    if (nameOfTheWord.length == 5) {
+    if (nameOfTheWord.length === COLUMN_NUMBER) {
         theWord += nameOfTheWord;
     }
     return theWord;
@@ -198,7 +209,7 @@ function writingInTextBox() {
 
 function writeOnTheLines(key) {
     console.log("writeOnTheLines");
-    if (counter != 5) {
+    if (counter !== COLUMN_NUMBER) {
         let cell = document.getElementById("cell" + (indexTheFirstInput - counter));
         cell.value = key.innerText;
         nameOfTheWord += key.innerText;
@@ -228,8 +239,8 @@ function addPicture() {
     document.body.appendChild(picture);
     setTimeout(() => {
         picture.remove();
-        ;
-    }, 5000);
+
+    }, TIME_OUT5SEC);
 }
 
 function gameButtons() {
@@ -271,14 +282,14 @@ function deleteChar() {
     }
 }
 
-function finshGame() {
-    if (gameOver === 6) {
+function finishGame() {
+    if (gameOver === ROW_NUMBER) {
         alert("Game Over");
         showWord()
         setTimeout(() => {
                 location.reload();
             }
-            , 5000);
+            , TIME_OUT5SEC);
     }
 
 }
@@ -287,12 +298,12 @@ function countHowManyTimesTheLetter(string) {
     console.log("countHowManyTimesTheLetter");
     console.log(string);
     let count = 0;
-    if (string.length == 0) {
+    if (string.length === 0) {
         return 0;
     }
     let letter = string.charAt(string.length - 1);
     for (let i = 0; i < string.length; i++) {
-        if (string.charAt(i) == letter) {
+        if (string.charAt(i) === letter) {
             count++;
         }
     }
